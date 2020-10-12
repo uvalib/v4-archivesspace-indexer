@@ -7,7 +7,7 @@ GIT_CMD = git
 JAVA_CMD = java
 JAVA_OPTS = -Xms512M -Xmx512M
 
-all: source update build dirs extract upload-staging # upload-production
+content: source update build dirs extract
 
 source: source/
 	$(GIT_CMD) clone git@github.com:uvalib/archivesspace-virgo.git source
