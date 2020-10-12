@@ -1,0 +1,4 @@
+config.properties
+*.log
+results
+source
