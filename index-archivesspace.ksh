@@ -2,6 +2,9 @@
 # Run the ArchivesSpace indexer
 #
 
+BASE_DIR=$( (cd -P $(dirname $0) && pwd) )
+cd $BASE_DIR
+
 # make the content to be uploaded
 make content
 res=$?
