@@ -9,14 +9,16 @@ JAVA_OPTS = -Xms512M -Xmx512M
 
 content: source update build dirs extract
 
-source: source/
-	$(GIT_CMD) clone git@github.com:uvalib/archivesspace-virgo.git source
+source: archivesspace-virgo
+
+archivesspace-virgo:
+	$(GIT_CMD) clone https://github.com/uvalib/archivesspace-virgo.git
 
 update:
-	cd source; $(GIT_CMD) pull
+	cd archivesspace-virgo; $(GIT_CMD) pull
 
-build: source/
-	cd source; $(MVN_CMD) clean install dependency:copy-dependencies -DskipTests
+build: archivesspace-virgo
+	cd archivesspace-virgo; $(MVN_CMD) clean install dependency:copy-dependencies -DskipTests
 
 dirs:
 	mkdir -p results/catalog/xml
@@ -27,13 +29,13 @@ dirs:
 extract:
 	cp config/indexer.properties config.properties
 	-rm index-generation.log
-	$(JAVA_CMD) $(JAVA_OPTS) -cp source/target/as-to-virgo-1.0-SNAPSHOT.jar:source/target/dependency/* edu.virginia.lib.indexing.tools.IndexRecords
+	$(JAVA_CMD) $(JAVA_OPTS) -cp archivesspace-virgo/target/as-to-virgo-1.0-SNAPSHOT.jar:archivesspace-virgo/target/dependency/* edu.virginia.lib.indexing.tools.IndexRecords
 
 upload-staging:
-	$(JAVA_CMD) $(JAVA_OPTS) -cp source/target/as-to-virgo-1.0-SNAPSHOT.jar:source/target/dependency/* edu.virginia.lib.indexing.tools.IndexRecordsForV4 config/upload-staging.properties
+	$(JAVA_CMD) $(JAVA_OPTS) -cp archivesspace-virgo/target/as-to-virgo-1.0-SNAPSHOT.jar:archivesspace-virgo/target/dependency/* edu.virginia.lib.indexing.tools.IndexRecordsForV4 config/upload-staging.properties
 
 upload-production:
-	$(JAVA_CMD) $(JAVA_OPTS) -cp source/target/as-to-virgo-1.0-SNAPSHOT.jar:source/target/dependency/* edu.virginia.lib.indexing.tools.IndexRecordsForV4 config/upload-production.properties
+	$(JAVA_CMD) $(JAVA_OPTS) -cp archivesspace-virgo/target/as-to-virgo-1.0-SNAPSHOT.jar:archivesspace-virgo/target/dependency/* edu.virginia.lib.indexing.tools.IndexRecordsForV4 config/upload-production.properties
 
 #
 # end of file
