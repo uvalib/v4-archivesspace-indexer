@@ -15,7 +15,7 @@ fi
 
 # and upload it
 make upload-staging
-#make upload-production
+make upload-production
 
 # all over
 exit 0
