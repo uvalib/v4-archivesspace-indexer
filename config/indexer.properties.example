@@ -6,8 +6,8 @@ logOutputDir:results/logs/
 marcOutputDir:results/marc/
 marcXmlOutputDir:results/catalog/xml/
 archivesSpaceUrl:http://archivesspace01.lib.virginia.edu:8089/
-username:md5wz
-password:md5wz
-tracksysDbHost:db1.lib.virginia.edu
-tracksysDbUsername:md5wz
-tracksysDbPassword:XF3umHsZ
+username:<ArchivesSpace user>
+password:<ArchivesSpace password>
+tracksysDbHost:<Tracksys database host>
+tracksysDbUsername:<Tracksys database user>
+tracksysDbPassword:<Tracksys database password>
