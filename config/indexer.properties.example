@@ -1,7 +1,7 @@
 solrUrl:http://avalon.lib.virginia.edu:8983/s
 indexOutputDir:results/index/
 archivesSpaceSolrUrl:http://archivesspace01.lib.virginia.edu:8090/collection1
-interval:2
+interval:6
 logOutputDir:results/logs/
 marcOutputDir:results/marc/
 marcXmlOutputDir:results/catalog/xml/
