@@ -1,5 +1,6 @@
 solrUrl:http://avalon.lib.virginia.edu:8983/s
-indexOutputDir:results/index/
+indexOutputDir:results/index-v4/
+outputRecordType:v4
 archivesSpaceSolrUrl:http://archivesspace01.lib.virginia.edu:8090/collection1
 interval:6
 logOutputDir:results/logs/
