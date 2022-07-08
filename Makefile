@@ -6,6 +6,7 @@ MVN_CMD = mvn
 GIT_CMD = git
 JAVA_CMD = java
 JAVA_OPTS = -Xms512M -Xmx512M
+AWS_SYNC_CMD = aws s3 sync
 
 content: source update build dirs extract
 
@@ -32,10 +33,10 @@ extract:
 	$(JAVA_CMD) $(JAVA_OPTS) -cp archivesspace-virgo/target/as-to-virgo-1.0-SNAPSHOT.jar:archivesspace-virgo/target/dependency/* edu.virginia.lib.indexing.tools.IndexRecords
 
 upload-staging:
-	$(JAVA_CMD) $(JAVA_OPTS) -cp archivesspace-virgo/target/as-to-virgo-1.0-SNAPSHOT.jar:archivesspace-virgo/target/dependency/* edu.virginia.lib.indexing.tools.IndexRecordsForV4 config/upload-staging.properties
+	$(AWS_SYNC_CMD) results/index-v4/ s3://virgo4-ingest-staging-inbound/doc-update/default/2022/aspace/ --exclude "*" --include "*.xml"
 
 upload-production:
-	$(JAVA_CMD) $(JAVA_OPTS) -cp archivesspace-virgo/target/as-to-virgo-1.0-SNAPSHOT.jar:archivesspace-virgo/target/dependency/* edu.virginia.lib.indexing.tools.IndexRecordsForV4 config/upload-production.properties
+	$(AWS_SYNC_CMD) results/index-v4/ s3://virgo4-ingest-production-inbound/doc-update/default/2022/aspace/ --exclude "*" --include "*.xml"
 
 #
 # end of file
