@@ -8,6 +8,7 @@ JAVA_CMD = java
 JAVA_OPTS = -Xms512M -Xmx512M
 AWS_SYNC_CMD = aws s3 sync
 YEAR = `date +%Y`
+INDEX_DIR=results/index-v4
 
 content: source update build dirs extract
 
@@ -24,20 +25,21 @@ build: archivesspace-virgo
 
 dirs:
 	mkdir -p results/catalog/xml
-	mkdir -p results/index
 	mkdir -p results/logs
 	mkdir -p results/marc
+	mkdir -p $(INDEX_DIR)
 
 extract:
 	cp config/indexer.properties config.properties
+	rm -rf $(INDEX_DIR)/*
 	-rm index-generation.log
 	$(JAVA_CMD) $(JAVA_OPTS) -cp archivesspace-virgo/target/as-to-virgo-1.0-SNAPSHOT.jar:archivesspace-virgo/target/dependency/* edu.virginia.lib.indexing.tools.IndexRecords
 
 upload-staging:
-	$(AWS_SYNC_CMD) results/index-v4/ s3://virgo4-ingest-staging-inbound/doc-update/default/$(YEAR)/aspace/ --exclude "*" --include "*.xml"
+	$(AWS_CP_CMD) $(INDEX_DIR)/ s3://virgo4-ingest-staging-inbound/doc-update/default/$(YEAR)/aspace/ --exact-timestamps --exclude "*" --include "*.xml"
 
 upload-production:
-	$(AWS_SYNC_CMD) results/index-v4/ s3://virgo4-ingest-production-inbound/doc-update/default/$(YEAR)/aspace/ --exclude "*" --include "*.xml"
+	$(AWS_CP_CMD) $(INDEX_DIR)/ s3://virgo4-ingest-production-inbound/doc-update/default/$(YEAR)/aspace/ --exact-timestamps --exclude "*" --include "*.xml"
 
 year:
 	echo $(YEAR)
