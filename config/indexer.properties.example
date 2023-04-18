@@ -1,12 +1,12 @@
 solrUrl:http://avalon.lib.virginia.edu:8983/s
 indexOutputDir:results/index-v4/
 outputRecordType:v4
-archivesSpaceSolrUrl:http://archivesspace01.lib.virginia.edu:8090/collection1
+archivesSpaceSolrUrl:http://solr-04-production.private.production:8080/solr/archivesspace
 interval:6
 logOutputDir:results/logs/
 marcOutputDir:results/marc/
 marcXmlOutputDir:results/catalog/xml/
-archivesSpaceUrl:http://archivesspace01.lib.virginia.edu:8089/
+archivesSpaceUrl:http://archivesspace-production.private.production:8089/
 username:<ArchivesSpace user>
 password:<ArchivesSpace password>
 tracksysDbHost:<Tracksys database host>
