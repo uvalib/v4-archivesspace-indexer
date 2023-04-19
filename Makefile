@@ -31,7 +31,7 @@ dirs:
 
 extract:
 	cp config/indexer.properties config.properties
-	rm -rf $(INDEX_DIR)/*
+	-rm -rf $(INDEX_DIR)/*
 	-rm index-generation.log
 	$(JAVA_CMD) $(JAVA_OPTS) -cp archivesspace-virgo/target/as-to-virgo-1.0-SNAPSHOT.jar:archivesspace-virgo/target/dependency/* edu.virginia.lib.indexing.tools.IndexRecords
 
