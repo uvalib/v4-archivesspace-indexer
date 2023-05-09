@@ -10,7 +10,7 @@ AWS_SYNC_CMD = aws s3 sync
 YEAR = `date +%Y`
 INDEX_DIR=results/index-v4
 
-content: source update build dirs extract
+content: source update build dirs copy_config extract
 
 source: archivesspace-virgo
 
@@ -21,7 +21,7 @@ update:
 	cd archivesspace-virgo; $(GIT_CMD) pull
 
 build: archivesspace-virgo
-	cd archivesspace-virgo; $(MVN_CMD) clean install dependency:copy-dependencies -DskipTests
+	cd archivesspace-virgo; $(MVN_CMD) clean install dependency:copy-dependencies -DskipTests  &> ../maven_make.out
 
 dirs:
 	mkdir -p results/catalog/xml
@@ -29,10 +29,11 @@ dirs:
 	mkdir -p results/marc
 	mkdir -p $(INDEX_DIR)
 
-extract:
+copy_config:
 	cp config/indexer.properties config.properties
 	-rm -rf $(INDEX_DIR)/*
-	-rm index-generation.log
+
+extract:
 	$(JAVA_CMD) $(JAVA_OPTS) -cp archivesspace-virgo/target/as-to-virgo-1.0-SNAPSHOT.jar:archivesspace-virgo/target/dependency/* edu.virginia.lib.indexing.tools.IndexRecords
 
 upload-staging:
